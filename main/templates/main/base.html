@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NiveshGuru</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-purple: #6c47ff;
+      --light-bg: #f5f6fa;
+      --light-card: #ffffff;
+      --text-dark: #1e1e1e;
+      --text-muted: #6b7280;
+      --hover-bg: #ede9fe;
+      --badge-green: #22c55e;
+      --badge-red: #ef4444;
+      --gradient-bg: linear-gradient(to right, #a78bfa, #6d28d9);
+      --sidebar-gradient: linear-gradient(to bottom right, rgba(247, 245, 255, 0.9), rgba(226, 220, 255, 0.85));
+      --hamburger-bg: linear-gradient(to right, rgba(108, 71, 255, 0.1), rgba(126, 95, 255, 0.2));
+      --btn-gradient: linear-gradient(to right, #a78bfa, #6d28d9);
+      --btn-hover-gradient: linear-gradient(to right, #6d28d9, #a78bfa);
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: var(--gradient-bg);
+      padding: 1rem 2rem;
+      color: white;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      z-index: 1051;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.75rem;
+      color: white;
+    }
+
+    .navbar-toggler {
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 250px;
+      height: 100vh;
+      background: var(--hamburger-bg);
+      backdrop-filter: blur(12px);
+      color: white;
+      transition: all 0.4s ease;
+      z-index: 2000;
+      padding: 2rem 1.5rem;
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar.show {
+      left: 0;
+    }
+
+    .sidebar .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #6c47ff;
+      cursor: pointer;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 1.2rem 0;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      background: rgba(108, 71, 255, 0.1);
+      text-decoration: none;
+      color:rgb(255, 255, 255);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background: white;
+      color: var(--brand-purple);
+    }
+
+    .btn-gradient {
+      background: var(--gradient-bg);
+      color: white !important;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-gradient:hover {
+      opacity: 0.85;
+    }
+
+    .content-wrapper {
+      flex: 1;
+      padding-top: 6rem;
+      padding-bottom: 2rem;
+    }
+
+    footer {
+      background: var(--gradient-bg);
+      color: white;
+      padding: 1.5rem 0;
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    .card-style {
+      background: var(--light-card);
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    @media (max-width: 576px) {
+      .navbar-brand {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar / Hamburger Menu -->
+<div id="sidebar" class="sidebar" onclick="event.stopPropagation()">
+  <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+  <a href="{% url 'home' %}">Home</a>
+  <a href="{% url 'blog_list' %}">Trade Blog</a>
+  <a href="{% url 'home' %}">LSTM Predictor</a>
+  <a href="{% url 'home' %}#faqs">FAQs</a>
+</div>
+
+<!-- Navbar -->
+<!-- Navbar -->
+<nav class="navbar fixed-top d-flex justify-content-between align-items-center">
+  <div class="d-flex align-items-center">
+    <button class="navbar-toggler me-3" type="button" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <a class="navbar-brand" href="{% url 'home' %}">NiveshGuru</a>
+  </div>
+  <div>
+    {% if user.is_authenticated %}
+      <form action="{% url 'logout' %}" method="post" class="d-inline">
+        {% csrf_token %}
+        <!-- Apply the same btn-gradient class to the logout button -->
+        <button type="submit" class="btn btn-gradient">Logout</button>
+      </form>
+    {% else %}
+      <a class="btn btn-gradient" href="{% url 'signup' %}">Getting Started</a>
+    {% endif %}
+  </div>
+</nav>
+
+
+<!-- Main Content -->
+<div class="content-wrapper" onclick="closeSidebar()">
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row justify-content-between text-center text-md-start">
+      <div class="col-md-6">
+        <p>© 2025 NiveshGuru. All rights reserved.</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <p>Crafted by IIC</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('show');
+  }
+
+  // Close sidebar when clicked outside
+  function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar.classList.contains('show')) {
+      sidebar.classList.remove('show');
+    }
+  }
+
+  // Close sidebar if clicked anywhere on the page
+  document.addEventListener('click', function (event) {
+    const sidebar = document.getElementById('sidebar');
+    const toggleButton = document.querySelector('.navbar-toggler');
+    if (!sidebar.contains(event.target) && !toggleButton.contains(event.target) && sidebar.classList.contains('show')) {
+      sidebar.classList.remove('show');
+    }
+  });
+  
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

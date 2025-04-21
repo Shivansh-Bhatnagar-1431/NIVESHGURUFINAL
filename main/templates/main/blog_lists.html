@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %}
+{% block title %}All Trading Blogs{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="background-color: #f8fafc;">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            
+            <!-- Page Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="fw-bold" style="color: #0f172a;">📈 Market Analysis Hub</h1>
+                <a href="{% url 'create_blog' %}" class="btn text-white fw-semibold btn-lg" style="background-color: #10b981;">
+                    + New Analysis
+                </a>
+            </div>
+
+            <!-- Search Bar -->
+            <form method="GET" class="mb-4">
+                <div class="input-group shadow-sm">
+                    <input type="text" name="search" class="form-control form-control-lg border-0 rounded-start-3" 
+                        placeholder="🔍 Search analyses..." value="{{ request.GET.search }}">
+                    <button type="submit" class="btn btn-dark px-4 rounded-end-3">Search</button>
+                </div>
+            </form>
+
+            <!-- Blog Cards -->
+            <div class="row g-4">
+                {% for blog in blogs %}
+                <div class="col-md-6">
+                    <div class="card border-0 shadow rounded-4 h-100">
+                        <img src="{{ blog.chart_image.url }}" alt="Trading Chart" class="card-img-top rounded-top-4" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-semibold text-dark">{{ blog.title }}</h5>
+                            <p class="card-text text-muted mb-2">
+                                By <span class="fw-semibold text-dark">{{ blog.author.username }}</span> • {{ blog.created_at|date:"M d, Y" }}
+                            </p>
+                            <p class="card-text">{{ blog.content|truncatewords:30 }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="text-center py-5">
+                    <p class="text-muted fs-5">No market analyses found.</p>
+                    <a href="{% url 'create_blog' %}" class="btn btn-success btn-lg mt-2">Start Your First Analysis</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

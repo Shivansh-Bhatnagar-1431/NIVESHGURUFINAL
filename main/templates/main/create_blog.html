@@ -1,0 +1,67 @@
+{% extends 'main/base.html' %}
+{% block title %}Create New Blog{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="background-color: #f8fafc;">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="card shadow-sm border-0 rounded-4" style="background-color: #ffffff;">
+        
+        <!-- Header -->
+        <div class="card-header text-white text-center rounded-top-4" style="background-color:rgb(111, 74, 213);">
+          <h2 class="mb-0 fw-bold">📊 New Market Analysis</h2>
+          <p class="text-muted mb-0 fs-6">Craft your insights with data-driven precision.</p>
+        </div>
+
+        <!-- Form Body -->
+        <div class="card-body p-4">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Title -->
+            <div class="mb-3">
+              <label for="id_title" class="form-label fw-semibold text-dark">Title</label>
+              {{ form.title }}
+            </div>
+
+            <!-- Content -->
+            <div class="mb-3">
+              <label for="id_content" class="form-label fw-semibold text-dark">Analysis Content</label>
+              {{ form.content }}
+            </div>
+
+            <!-- Chart Upload -->
+            <div class="mb-4">
+              <label for="id_chart_image" class="form-label fw-semibold text-dark">Chart Image</label>
+              {{ form.chart_image }}
+              <small class="form-text text-muted">Supported formats: JPG, PNG. Max size: 5MB.</small>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-lg fw-semibold text-white" style="background-color:rgb(132, 87, 240);">
+                <i class="bi bi-upload me-1"></i> Publish Analysis
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Footer Links -->
+        {% if user.is_authenticated %}
+        <div class="card-footer text-center bg-light py-3 rounded-bottom-4">
+          <a href="{% url 'blog_list' %}" class="btn btn-sm btn-outline-dark me-2">
+            <i class="bi bi-list-task"></i> All Blogs
+          </a>
+          <a href="{% url 'my_blogs' %}" class="btn btn-sm btn-outline-secondary me-2">
+            <i class="bi bi-person-circle"></i> My Blogs
+          </a>
+          <a href="{% url 'create_blog' %}" class="btn btn-sm btn-outline-success">
+            <i class="bi bi-plus-circle-dotted"></i> New Blog
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

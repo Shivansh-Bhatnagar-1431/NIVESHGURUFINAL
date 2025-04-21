@@ -1,0 +1,83 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="row w-100">
+    
+    <!-- Left Branding Panel with Transparent Overlay -->
+    <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center bg-dark text-white position-relative" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; overflow: hidden;">
+      <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.5); z-index: 1;"></div>
+      <div class="p-5 text-center position-relative" style="z-index: 2;">
+        <h1 class="fw-bold">Welcome to <span class="text-brand">NiveshGuru!</span></h1>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+      <div class="card shadow-lg border-0 p-4 p-md-5 w-100" style="max-width: 500px; border-radius: 20px;">
+        <div class="text-center mb-4">
+          <img src="{% static 'images/logo.png' %}" alt="Logo" width="50" class="mb-2">
+          <h2 class="fw-bold text-brand">Create your account</h2>
+          <p class="text-muted">Get started with market mastery today.</p>
+        </div>
+
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="mb-3">
+              <label class="form-label">
+                {% if field.label == "Password confirmation" %}
+                  Confirm Password
+                {% else %}
+                  {{ field.label }}
+                {% endif %}
+              </label>
+              <input
+                type="{{ field.field.widget.input_type }}"
+                name="{{ field.name }}"
+                {% if field.value %}value="{{ field.value }}"{% endif %}
+                class="form-control"
+                id="{{ field.id_for_label }}"
+                {% if field.field.required %}required{% endif %}
+              >
+              {% for error in field.errors %}
+                <div class="text-danger small">{{ error }}</div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-brand w-100 py-2 mt-2">Sign Up</button>
+        </form>
+
+        <div class="text-center mt-4">
+          <p class="text-muted mb-0">Already a user?
+            <a href="{% url 'login' %}" class="text-brand fw-semibold">Log In</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Style -->
+<style>
+  .text-brand {
+    color: #6c47ff;
+  }
+  .btn-brand {
+    background-color: #6c47ff;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  .btn-brand:hover {
+    background-color: #532ccf;
+  }
+  .form-control {
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid #ced4da;
+  }
+</style>
+{% endblock %}

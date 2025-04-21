@@ -1,0 +1,365 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Content START -->
+<div class="container">
+
+  {% if not user.is_authenticated %}
+  <!-- Welcome Block -->
+  <div class="d-flex flex-column justify-content-center align-items-center text-center py-5 mb-5 animate-fade" style="background-color: #0b1546; border-radius: 1rem;">
+    <h1 class="display-4 fw-bold text-light">Master Your Investments with <span style="color: #6c47ff;">NiveshGuru!</span></h1>
+    <p class="lead text-light mt-2">We offer a wide range of benefits to enhance your trading experience.</p>
+    <a href="{% url 'signup' %}" class="btn mt-4 px-4 py-2 get-started-btn">Explore Features</a>
+  </div>
+
+ <!-- Market Mastery Section -->
+ <div class="py-5 px-4 mb-5 text-white rounded animate-fade" style="background-color: #0b1546;">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Gateway to Market Mastery</h2>
+      <p class="mt-3">Access real-time indices, advanced charting tools, and insights into market momentum.</p>
+      <div class="mock-chart bg-white p-3 rounded text-muted">[Live Chart Placeholder]</div>
+    </div>
+    <div class="col-md-6">
+      <h2 class="text-white">Key Features</h2>
+      <ul class="list-unstyled mt-3">
+        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Technical Tools</li>
+        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Stock Screener</li>
+        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Options Analysis</li>
+        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Historical Data</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Learning Resources -->
+<div class="p-5 mb-5 bg-white rounded-4 shadow-sm animate-fade">
+  <h2 class="fw-bold text-center text-brand mb-4">📘 Learning Resources</h2>
+  <p class="text-center text-muted mb-4">Sharpen your trading skills with our expert-curated guides.</p>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100 text-center resource-card">
+        <div class="card-body">
+          <i class="bi bi-lightbulb-fill fs-1 text-brand mb-3"></i>
+          <h5 class="card-title fw-semibold">Beginner's Guide</h5>
+          <p class="text-muted">Start your investing journey with foundational knowledge.</p>
+          <a href="#" class="btn btn-outline-brand btn-sm">Explore Guide</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100 text-center resource-card">
+        <div class="card-body">
+          <i class="bi bi-activity fs-1 text-brand mb-3"></i>
+          <h5 class="card-title fw-semibold">Technical Analysis</h5>
+          <p class="text-muted">Learn to read charts, patterns, and key indicators.</p>
+          <a href="#" class="btn btn-outline-brand btn-sm">View Lessons</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100 text-center resource-card">
+        <div class="card-body">
+          <i class="bi bi-currency-exchange fs-1 text-brand mb-3"></i>
+          <h5 class="card-title fw-semibold">Derivatives Trading</h5>
+          <p class="text-muted">Understand options, futures & risk management.</p>
+          <a href="#" class="btn btn-outline-brand btn-sm">Learn Strategies</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQs Section -->
+<div class="mb-5 animate-fade">
+  <h2 class="text-center fw-bold text-brand mb-4"> Frequently Asked Questions❓</h2>
+  <p class="text-center text-muted mb-4">Get clarity on common queries about using NiveshGuru.</p>
+
+  <div class="accordion" id="faqAccordion">
+    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+      <h2 class="accordion-header" id="faq1">
+        <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+          How accurate are the stock predictions?
+        </button>
+      </h2>
+      <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+        <div class="accordion-body text-muted">
+          Our LSTM-based predictions use historical data and market trends. While insightful, they should be used with caution and not as financial advice.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+      <h2 class="accordion-header" id="faq2">
+        <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+          Do I need to create an account to access features?
+        </button>
+      </h2>
+      <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+        <div class="accordion-body text-muted">
+          You can explore some features without logging in, but for blog creation, AI tools, and saving preferences, an account is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+      <h2 class="accordion-header" id="faq3">
+        <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+          Is NiveshGuru free to use?
+        </button>
+      </h2>
+      <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+        <div class="accordion-body text-muted">
+          Yes, NiveshGuru is free for all users. Some advanced tools may become part of a premium tier in the future.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+      <h2 class="accordion-header" id="faq4">
+        <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+          Can I contribute to TradeBlog?
+        </button>
+      </h2>
+      <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+        <div class="accordion-body text-muted">
+          Absolutely! After signing up, you'll have access to our blog editor where you can write and publish your own market analyses.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  {% endif %}
+
+  <!-- Welcome Message -->
+  <div class="text-center mb-5 animate-fade pt-3">
+    <h1 class="display-4 fw-bold">All-in-one <span class="text-brand">indeed</span></h1>
+    {% if user.is_authenticated %}
+    <p class="lead">Hello, {{ user.username }}! Ready to explore the markets?</p>
+
+  {% comment %} <iframe src="https://in.tradingview.com/#main-market-summary/" width="100%" height="500"></iframe> {% endcomment %}
+
+  <div class="tradingview-widget-container">
+    <div id="tradingview_chart"></div>
+    <div class="tradingview-widget-copyright">
+        {% comment %} <a href="https://in.tradingview.com/" rel="noopener nofollow" target="_blank">
+            <span class="blue-text">Track all markets on TradingView</span>
+        </a> {% endcomment %}
+    </div>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+        new TradingView.widget({
+            "width": "100%",
+            "height": 500,
+            "symbol": "BSE:IRFC",
+            "interval": "D",
+            "timezone": "Etc/UTC",
+            "theme": "light",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "allow_symbol_change": true,
+            "container_id": "tradingview_chart"
+        });
+    </script>
+</div>
+
+<!-- TradingView Ticker Tape Widget -->
+<div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+
+    </div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+        "symbols": [
+        {"proName": "BSE:SENSEX", "title": "BSE Sensex"},
+        {"proName": "BSE:RELIANCE", "title": "Reliance Industries"},
+        {"proName": "BSE:TCS", "title": "Tata Consultancy Services"},
+        {"proName": "BSE:HDFCBANK", "title": "HDFC Bank"},
+        {"proName": "BSE:INFY", "title": "Infosys"},
+        {"proName": "BSE:ICICIBANK", "title": "ICICI Bank"},
+        {"proName": "BSE:HINDUNILVR", "title": "Hindustan Unilever"},
+        {"proName": "BSE:BAJFINANCE", "title": "Bajaj Finance"},
+        {"proName": "BSE:SBIN", "title": "State Bank of India"},
+        {"proName": "BSE:LT", "title": "Larsen & Toubro"}
+    ],
+        "showSymbolLogo": true,
+        "colorTheme": "light",
+        "isTransparent": false,
+        "displayMode": "adaptive",
+        "locale": "en"
+    }
+    </script>
+
+  <!-- Feature Cards -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0 feature-card animate-fade">
+        <div class="card-body text-center">
+          <i class="bi bi-journal-text fs-1 text-brand"></i>
+          <h3 class="card-title mt-3">TradeBlog</h3>
+          <p>Daily analysis, strategies, and insights.</p>
+          <a href="{% url 'create_blog' %}" class="btn btn-outline-brand">Read Analysis</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0 feature-card animate-fade">
+        <div class="card-body text-center">
+          <i class="bi bi-graph-up fs-1 text-brand"></i>
+          <h3 class="card-title mt-3">LSTM Predictor</h3>
+          <p>AI-powered stock predictions for more accuracy.</p>
+          <a href="#" class="btn btn-outline-brand">Try Predictor</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0 feature-card animate-fade">
+        <div class="card-body text-center">
+          <i class="bi bi-speedometer2 fs-1 text-info"></i>
+          <h3 class="card-title mt-3">Live Dashboard</h3>
+          <p>Real-time NSE/BSE tracking with indicators.</p>
+          <a href="{% url 'nse_dashboard' %}" class="btn btn-outline-info">View Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <!-- Footer Links Section -->
+  <div class="p-5 mb-5 bg-white rounded-4 shadow-sm animate-fade">
+    <div class="row g-4">
+      <div class="col-md-3">
+        <h5 class="fw-bold text-brand mb-3">Product</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Features</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Security</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h5 class="fw-bold text-brand mb-3">Company</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">About</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Blog</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h5 class="fw-bold text-brand mb-3">Resources</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Documentation</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">API Reference</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h5 class="fw-bold text-brand mb-3">Legal</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Privacy</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Terms</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TradingView Widget Scripts -->
+<script>
+  const darkMode = document.body.classList.contains('dark-mode');
+  const chartTheme = darkMode ? "dark" : "light";
+
+  new TradingView.widget({
+    "width": "100%",
+    "height": 500,
+    "symbol": "BSE:IRFC",
+    "interval": "D",
+    "timezone": "Etc/UTC",
+    "theme": chartTheme,
+    "style": "1",
+    "locale": "en",
+    "toolbar_bg": "#f1f3f6",
+    "enable_publishing": false,
+    "hide_top_toolbar": false,
+    "allow_symbol_change": true,
+    "container_id": "tradingview_chart"
+  });
+
+  {% comment %} new TradingView.widget({
+    "container_id": "ticker-tape",
+    "symbols": [
+      { "proName": "BSE:SENSEX", "title": "BSE Sensex" },
+      { "proName": "BSE:RELIANCE", "title": "Reliance" },
+      { "proName": "BSE:TCS", "title": "TCS" },
+      { "proName": "BSE:HDFCBANK", "title": "HDFC Bank" },
+    ],
+    "colorTheme": chartTheme,
+    "isTransparent": false,
+    "displayMode": "adaptive",
+    "locale": "en"
+  }); {% endcomment %}
+  
+</script>
+
+<!-- Bootstrap Icons + FAQ support -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom CSS -->
+<style>
+  .text-brand { color: #6c47ff; }
+  .btn-outline-brand {
+    border-color: #6c47ff;
+    color: #6c47ff;
+  }
+  .btn-outline-brand:hover {
+    background-color: #6c47ff;
+    color: white;
+  }
+  .get-started-btn {
+    background-color: #6c47ff;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  .get-started-btn:hover {
+    background-color: #532ccf;
+    color: #ffffff;
+  }
+  .card:hover, .feature-card:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+  }
+  .resource-card {
+    transition: transform 0.3s ease;
+    border-radius: 1rem;
+  }
+  .resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(108, 71, 255, 0.1);
+  }
+  .animate-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  .hover-text-brand {
+    transition: color 0.2s ease;
+  }
+  .hover-text-brand:hover {
+    color: #6c47ff !important;
+  }
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+{% endif %}
+{% endblock %}

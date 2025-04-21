@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">NSE Market Dashboard</h1>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% else %}
+        <div class="row">
+            <div class="col-12 mb-4">
+                <h4>Interactive Market Data</h4>
+                <button id="openStreamlit" class="btn btn-primary">Open Dashboard</button>
+                <button id="closeStreamlit" class="btn btn-danger" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 1000;">Close Dashboard</button>
+            </div>
+        </div>
+
+        <div id="streamlit-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: white; z-index: 999;">
+            <iframe id="streamlit-frame" src="https://nsedashboard-bhatnagar.streamlit.app/" style="width:100%; height:100%; border:none;"></iframe>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    document.getElementById("openStreamlit").addEventListener("click", function () {
+        document.getElementById("streamlit-container").style.display = "block";
+        document.getElementById("openStreamlit").style.display = "none";
+        document.getElementById("closeStreamlit").style.display = "inline-block";
+        document.body.style.overflow = "hidden";  // Disable main page scrolling
+    });
+
+    document.getElementById("closeStreamlit").addEventListener("click", function () {
+        document.getElementById("streamlit-container").style.display = "none";
+        document.getElementById("openStreamlit").style.display = "inline-block";
+        document.getElementById("closeStreamlit").style.display = "none";
+        document.body.style.overflow = "auto";  // Re-enable main page scrolling
+    });
+</script>
+
+{% endblock %}

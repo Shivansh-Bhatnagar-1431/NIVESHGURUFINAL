@@ -219,7 +219,7 @@
 </head>
 <body>
   <!-- Message Toasts -->
-  <div class="toast-container">
+  {% comment %} <div class="toast-container">
     {% for message in messages %}
     <div class="toast align-items-center text-white bg-{{ message.tags }} border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
         <div class="d-flex">
@@ -230,7 +230,7 @@
             </div>
         </div>
         {% endfor %}
-    </div>
+    </div> {% endcomment %}
 
 <!-- Sidebar / Hamburger Menu -->
 <div id="sidebar" class="sidebar" onclick="event.stopPropagation()">
@@ -259,7 +259,7 @@
   
   <a href="{% url 'home' %}">Home</a>
   <a href="{% url 'blog_list' %}">Trade Blog</a>
-  <a href="{% url 'home' %}">LSTM Predictor</a>
+  <a href="{% url 'lstm_model'%}">LSTM Predictor</a>
   <a href="{% url 'dashboard' %}">Dashboard</a>
   {% else %}
   <a href="{% url 'home' %}">Home</a>

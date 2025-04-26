@@ -79,4 +79,4 @@ if st.session_state.show_holidays:
         st.session_state.show_holidays = False
 
 # Footer
-st.sidebar.markdown("Built with NSElib & Streamlit")
+st.sidebar.markdown("Powered by NiveshGuru")

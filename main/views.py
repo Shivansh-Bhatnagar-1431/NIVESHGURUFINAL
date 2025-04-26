@@ -80,8 +80,12 @@ def signup_view(request):
     return render(request, 'main/signup.html', {'form': form})
 
 # dashboard view work
+@login_required
 def dashboard_view(request):
    
     return render(request, 'nse_dashboard/dashboard.html')
-
+@login_required
+def lstm_model(request):
+   
+    return render(request, 'main/lstm.html')
 

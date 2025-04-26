@@ -10,6 +10,7 @@ urlpatterns = [
     path('blogs/', views.blog_list, name='blog_list'),
     path('my-blogs/', views.my_blogs, name='my_blogs'),
     path('create-blog/', views.create_blog, name='create_blog'),
+    path('lstm-model/', views.lstm_model, name='lstm_model'),
     
     
 ]

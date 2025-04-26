@@ -6,10 +6,11 @@
   <div class="row w-100">
     
     <!-- Branding Panel -->
-    <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center bg-dark text-white position-relative" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; overflow: hidden;">
+    <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center bg-dark text-white position-relative" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; overflow: hidden;">
       <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.5); z-index: 1;"></div>
       <div class="p-5 text-center position-relative" style="z-index: 2;">
-        <h1 class="fw-bold">Welcome back to <span class="text-brand">NiveshGuru!</span></h1>
+        <h1 class="fw-bold mb-3">Welcome back to</h1>
+        <h1 id="animated-brand" class="fw-bold text-brand"></h1>
       </div>
     </div>
 
@@ -45,7 +46,7 @@
   </div>
 </div>
 
-<!-- Style -->
+<!-- Styles -->
 <style>
   .text-brand {
     color: #6c47ff;
@@ -65,5 +66,46 @@
     padding: 10px 14px;
     border: 1px solid #ced4da;
   }
+
+  /* Animation */
+  .char-fade {
+    opacity: 0;
+    animation: fadeInUp 0.4s ease forwards;
+    display: inline-block;
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 </style>
+
+<!-- Animation Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const text = "NiveshGuru!";
+    const brand = document.getElementById("animated-brand");
+  
+    let i = 0;
+  
+    function showNextChar() {
+      if (i < text.length) {
+        const span = document.createElement("span");
+        span.classList.add("char-fade");
+        span.innerText = text[i];
+        brand.appendChild(span);
+        i++;
+        setTimeout(showNextChar, 150);
+      }
+    }
+  
+    showNextChar();
+  });
+</script>
 {% endblock %}

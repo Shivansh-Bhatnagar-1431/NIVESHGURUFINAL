@@ -2,313 +2,8 @@
 {% load static %}
 
 {% block content %}
-<!-- Content START -->
 <div class="container">
-
-  {% if not user.is_authenticated %}
-  <!-- Welcome Block -->
-  <div class="d-flex flex-column justify-content-center align-items-center text-center py-5 mb-5 animate-fade" style="background-color: #0b1546; border-radius: 1rem;">
-    <h1 class="display-4 fw-bold text-light">Master Your Investments with <span style="color: #6c47ff;">NiveshGuru!</span></h1>
-    <p class="lead text-light mt-2">We offer a wide range of benefits to enhance your trading experience.</p>
-    <a href="{% url 'signup' %}" class="btn mt-4 px-4 py-2 get-started-btn">Explore Features</a>
-  </div>
-
- <!-- Market Mastery Section -->
- <div class="py-5 px-4 mb-5 text-white rounded animate-fade" style="background-color: #0b1546;">
-  <div class="row">
-    <div class="col-md-6">
-      <h2>Gateway to Market Mastery</h2>
-      <p class="mt-3">Access real-time indices, advanced charting tools, and insights into market momentum.</p>
-      <div class="mock-chart bg-white p-3 rounded text-muted">[Live Chart Placeholder]</div>
-    </div>
-    <div class="col-md-6">
-      <h2 class="text-white">Key Features</h2>
-      <ul class="list-unstyled mt-3">
-        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Technical Tools</li>
-        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Stock Screener</li>
-        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Options Analysis</li>
-        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Historical Data</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- Learning Resources -->
-<div class="p-5 mb-5 bg-white rounded-4 shadow-sm animate-fade">
-  <h2 class="fw-bold text-center text-brand mb-4">📘 Learning Resources</h2>
-  <p class="text-center text-muted mb-4">Sharpen your trading skills with our expert-curated guides.</p>
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="card border-0 shadow-sm h-100 text-center resource-card">
-        <div class="card-body">
-          <i class="bi bi-lightbulb-fill fs-1 text-brand mb-3"></i>
-          <h5 class="card-title fw-semibold">Beginner's Guide</h5>
-          <p class="text-muted">Start your investing journey with foundational knowledge.</p>
-          <a href="#" class="btn btn-outline-brand btn-sm">Explore Guide</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card border-0 shadow-sm h-100 text-center resource-card">
-        <div class="card-body">
-          <i class="bi bi-activity fs-1 text-brand mb-3"></i>
-          <h5 class="card-title fw-semibold">Technical Analysis</h5>
-          <p class="text-muted">Learn to read charts, patterns, and key indicators.</p>
-          <a href="#" class="btn btn-outline-brand btn-sm">View Lessons</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card border-0 shadow-sm h-100 text-center resource-card">
-        <div class="card-body">
-          <i class="bi bi-currency-exchange fs-1 text-brand mb-3"></i>
-          <h5 class="card-title fw-semibold">Derivatives Trading</h5>
-          <p class="text-muted">Understand options, futures & risk management.</p>
-          <a href="#" class="btn btn-outline-brand btn-sm">Learn Strategies</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FAQs Section -->
-<div class="mb-5 animate-fade">
-  <h2 class="text-center fw-bold text-brand mb-4"> Frequently Asked Questions❓</h2>
-  <p class="text-center text-muted mb-4">Get clarity on common queries about using NiveshGuru.</p>
-
-  <div class="accordion" id="faqAccordion">
-    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
-      <h2 class="accordion-header" id="faq1">
-        <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-          How accurate are the stock predictions?
-        </button>
-      </h2>
-      <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
-        <div class="accordion-body text-muted">
-          Our LSTM-based predictions use historical data and market trends. While insightful, they should be used with caution and not as financial advice.
-        </div>
-      </div>
-    </div>
-
-    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
-      <h2 class="accordion-header" id="faq2">
-        <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-          Do I need to create an account to access features?
-        </button>
-      </h2>
-      <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
-        <div class="accordion-body text-muted">
-          You can explore some features without logging in, but for blog creation, AI tools, and saving preferences, an account is required.
-        </div>
-      </div>
-    </div>
-
-    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
-      <h2 class="accordion-header" id="faq3">
-        <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-          Is NiveshGuru free to use?
-        </button>
-      </h2>
-      <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
-        <div class="accordion-body text-muted">
-          Yes, NiveshGuru is free for all users. Some advanced tools may become part of a premium tier in the future.
-        </div>
-      </div>
-    </div>
-
-    <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
-      <h2 class="accordion-header" id="faq4">
-        <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-          Can I contribute to TradeBlog?
-        </button>
-      </h2>
-      <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
-        <div class="accordion-body text-muted">
-          Absolutely! After signing up, you'll have access to our blog editor where you can write and publish your own market analyses.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-  {% endif %}
-
-  <!-- Welcome Message -->
-  <div class="text-center mb-5 animate-fade pt-3">
-    <h1 class="display-4 fw-bold">All-in-one <span class="text-brand">indeed</span></h1>
-    {% if user.is_authenticated %}
-    <p class="lead">Hello, {{ user.username }}! Ready to explore the markets?</p>
-
-  {% comment %} <iframe src="https://in.tradingview.com/#main-market-summary/" width="100%" height="500"></iframe> {% endcomment %}
-
-  <div class="tradingview-widget-container">
-    <div id="tradingview_chart"></div>
-    <div class="tradingview-widget-copyright">
-        {% comment %} <a href="https://in.tradingview.com/" rel="noopener nofollow" target="_blank">
-            <span class="blue-text">Track all markets on TradingView</span>
-        </a> {% endcomment %}
-    </div>
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <script type="text/javascript">
-        new TradingView.widget({
-            "width": "100%",
-            "height": 500,
-            "symbol": "BSE:IRFC",
-            "interval": "D",
-            "timezone": "Etc/UTC",
-            "theme": "light",
-            "style": "1",
-            "locale": "en",
-            "toolbar_bg": "#f1f3f6",
-            "enable_publishing": false,
-            "allow_symbol_change": true,
-            "container_id": "tradingview_chart"
-        });
-    </script>
-</div>
-
-<!-- TradingView Ticker Tape Widget -->
-<div class="tradingview-widget-container">
-    <div class="tradingview-widget-container__widget"></div>
-
-    </div>
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-    {
-        "symbols": [
-        {"proName": "BSE:SENSEX", "title": "BSE Sensex"},
-        {"proName": "BSE:RELIANCE", "title": "Reliance Industries"},
-        {"proName": "BSE:TCS", "title": "Tata Consultancy Services"},
-        {"proName": "BSE:HDFCBANK", "title": "HDFC Bank"},
-        {"proName": "BSE:INFY", "title": "Infosys"},
-        {"proName": "BSE:ICICIBANK", "title": "ICICI Bank"},
-        {"proName": "BSE:HINDUNILVR", "title": "Hindustan Unilever"},
-        {"proName": "BSE:BAJFINANCE", "title": "Bajaj Finance"},
-        {"proName": "BSE:SBIN", "title": "State Bank of India"},
-        {"proName": "BSE:LT", "title": "Larsen & Toubro"}
-    ],
-        "showSymbolLogo": true,
-        "colorTheme": "light",
-        "isTransparent": false,
-        "displayMode": "adaptive",
-        "locale": "en"
-    }
-    </script>
-
-  <!-- Feature Cards -->
-  <div class="row g-4 mb-5">
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0 feature-card animate-fade">
-        <div class="card-body text-center">
-          <i class="bi bi-journal-text fs-1 text-brand"></i>
-          <h3 class="card-title mt-3">TradeBlog</h3>
-          <p>Daily analysis, strategies, and insights.</p>
-          <a href="{% url 'create_blog' %}" class="btn btn-outline-brand">Read Analysis</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0 feature-card animate-fade">
-        <div class="card-body text-center">
-          <i class="bi bi-graph-up fs-1 text-brand"></i>
-          <h3 class="card-title mt-3">LSTM Predictor</h3>
-          <p>AI-powered stock predictions for more accuracy.</p>
-          <a href="#" class="btn btn-outline-brand">Try Predictor</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0 feature-card animate-fade">
-        <div class="card-body text-center">
-          <i class="bi bi-speedometer2 fs-1 text-info"></i>
-          <h3 class="card-title mt-3">Live Dashboard</h3>
-          <p>Real-time NSE/BSE tracking with indicators.</p>
-          <a href="{% url 'nse_dashboard' %}" class="btn btn-outline-info">View Dashboard</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
- 
-  <!-- Footer Links Section -->
-  <div class="p-5 mb-5 bg-white rounded-4 shadow-sm animate-fade">
-    <div class="row g-4">
-      <div class="col-md-3">
-        <h5 class="fw-bold text-brand mb-3">Product</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Features</a></li>
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Security</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <h5 class="fw-bold text-brand mb-3">Company</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">About</a></li>
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Blog</a></li>
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Contact</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <h5 class="fw-bold text-brand mb-3">Resources</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Documentation</a></li>
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">API Reference</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <h5 class="fw-bold text-brand mb-3">Legal</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Privacy</a></li>
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Terms</a></li>
-          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Cookies</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- TradingView Widget Scripts -->
-<script>
-  const darkMode = document.body.classList.contains('dark-mode');
-  const chartTheme = darkMode ? "dark" : "light";
-
-  new TradingView.widget({
-    "width": "100%",
-    "height": 500,
-    "symbol": "BSE:IRFC",
-    "interval": "D",
-    "timezone": "Etc/UTC",
-    "theme": chartTheme,
-    "style": "1",
-    "locale": "en",
-    "toolbar_bg": "#f1f3f6",
-    "enable_publishing": false,
-    "hide_top_toolbar": false,
-    "allow_symbol_change": true,
-    "container_id": "tradingview_chart"
-  });
-
-  {% comment %} new TradingView.widget({
-    "container_id": "ticker-tape",
-    "symbols": [
-      { "proName": "BSE:SENSEX", "title": "BSE Sensex" },
-      { "proName": "BSE:RELIANCE", "title": "Reliance" },
-      { "proName": "BSE:TCS", "title": "TCS" },
-      { "proName": "BSE:HDFCBANK", "title": "HDFC Bank" },
-    ],
-    "colorTheme": chartTheme,
-    "isTransparent": false,
-    "displayMode": "adaptive",
-    "locale": "en"
-  }); {% endcomment %}
-  
-</script>
-
-<!-- Bootstrap Icons + FAQ support -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom CSS -->
+  <!-- Custom CSS -->
 <style>
   .text-brand { color: #6c47ff; }
   .btn-outline-brand {
@@ -360,6 +55,585 @@
       transform: translateY(0);
     }
   }
+  .animate-fade:nth-child(1) { animation-delay: 0s; }
+  .animate-fade:nth-child(2) { animation-delay: 0.1s; }
+  .animate-fade:nth-child(3) { animation-delay: 0.2s; }
+
+  .news-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+  }
+
+  .news-item:hover {
+    background-color: #e9e9e9;
+  }
+
+  .news-summary {
+    font-size: 1.1em;
+    color: #333;
+  }
+
+  .news-full-content {
+    margin-top: 10px;
+    font-size: 1em;
+    color: #555;
+  }
+
+  .news-full-content.d-none {
+    display: none;
+  }
+
+  .toggle-btn {
+    margin-top: 10px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+  }
+
+  .news-title {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #444;
+  }
+
+  .news-container {
+    margin-top: 20px;
+
+    /* Investment Card Styling */
+    .investment-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: #ffffff;
+      color: #333333;
+    }
+    
+    .investment-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Icon Styling */
+    .icon-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #6a1b9a;
+      border-radius: 50%;
+      padding: 15px;
+      width: 50px;
+      height: 50px;
+      margin-bottom: 15px;
+    }
+    
+    /* Button Hover Effect */
+    .btn-outline-light {
+      border: 2px solid white;
+      color: white;
+    }
+    
+    .btn-outline-light:hover {
+      background-color: white;
+      color: #6a1b9a;
+      border: 2px solid #6a1b9a;
+    }
+    
+    /* Text Color Updates */
+    .card-title, .card-text, .collapse p {
+      color: #333333; /* Dark text color for better contrast */
+    }
+    
+    /* Collapse Content Color */
+    .text-dark {
+      color: #333333; /* Ensure text is dark enough to be readable */
+    }
+      
+
 </style>
-{% endif %}
+
+  {% if not user.is_authenticated %}
+  <!-- Welcome Block -->
+  <div class="d-flex flex-column justify-content-center align-items-center text-center py-5 mb-5 animate-fade" style="background-color: #0b1546; border-radius: 1rem;">
+    <h1 class="display-4 fw-bold text-light">Master Your Investments with <span style="color: #6c47ff;">NiveshGuru!</span></h1>
+    <p class="lead text-light mt-2">We offer a wide range of benefits to enhance your trading experience.</p>
+    <a href="{% url 'signup' %}" class="btn mt-4 px-4 py-2 get-started-btn">Explore Features</a>
+  </div>
+
+  <div class="tradingview-widget-container mb-4">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        {"proName": "BSE:SENSEX", "title": "BSE Sensex"},
+        {"proName": "BSE:RELIANCE", "title": "Reliance"},
+        {"proName": "BSE:TCS", "title": "TCS"},
+        {"proName": "BSE:HDFCBANK", "title": "HDFC Bank"},
+        {"proName": "BSE:INFY", "title": "Infosys"},
+        {"proName": "BSE:ICICIBANK", "title": "ICICI Bank"},
+        {"proName": "BSE:HINDUNILVR", "title": "Hindustan Unilever"},
+        {"proName": "BSE:BAJFINANCE", "title": "Bajaj Finance"},
+        {"proName": "BSE:SBIN", "title": "State Bank of India"},
+        {"proName": "BSE:LT", "title": "L&T"},
+        {"proName": "BSE:AXISBANK", "title": "Axis Bank"},
+        {"proName": "BSE:KOTAKBANK", "title": "Kotak Mahindra Bank"},
+        {"proName": "BSE:ITC", "title": "ITC"},
+        {"proName": "BSE:MARUTI", "title": "Maruti Suzuki"},
+        {"proName": "BSE:NTPC", "title": "NTPC"},
+        {"proName": "BSE:POWERGRID", "title": "Power Grid"},
+        {"proName": "BSE:ONGC", "title": "ONGC"},
+        {"proName": "BSE:COALINDIA", "title": "Coal India"},
+        {"proName": "BSE:BHARTIARTL", "title": "Bharti Airtel"},
+        {"proName": "BSE:ULTRACEMCO", "title": "UltraTech Cement"},
+        {"proName": "BSE:ASIANPAINT", "title": "Asian Paints"},
+        {"proName": "BSE:HCLTECH", "title": "HCL Technologies"},
+        {"proName": "BSE:WIPRO", "title": "Wipro"},
+        {"proName": "BSE:TECHM", "title": "Tech Mahindra"},
+        {"proName": "BSE:BAJAJ-AUTO", "title": "Bajaj Auto"},
+        {"proName": "BSE:HEROMOTOCO", "title": "Hero MotoCorp"},
+        {"proName": "BSE:TITAN", "title": "Titan"},
+        {"proName": "BSE:ADANIPORTS", "title": "Adani Ports"},
+        {"proName": "BSE:ADANIENT", "title": "Adani Enterprises"},
+        {"proName": "BSE:GRASIM", "title": "Grasim"},
+        {"proName": "BSE:SBILIFE", "title": "SBI Life"},
+        {"proName": "BSE:ICICIPRULI", "title": "ICICI Prudential"},
+        {"proName": "BSE:BAJAJFINSV", "title": "Bajaj Finserv"},
+        {"proName": "BSE:DRREDDY", "title": "Dr. Reddy's"},
+        {"proName": "BSE:SUNPHARMA", "title": "Sun Pharma"},
+        {"proName": "BSE:DIVISLAB", "title": "Divi's Labs"},
+        {"proName": "BSE:CIPLA", "title": "Cipla"},
+        {"proName": "BSE:SHREECEM", "title": "Shree Cement"},
+        {"proName": "BSE:EICHERMOT", "title": "Eicher Motors"},
+        {"proName": "BSE:BRITANNIA", "title": "Britannia"},
+        {"proName": "BSE:INDUSINDBK", "title": "IndusInd Bank"},
+        {"proName": "BSE:BPCL", "title": "BPCL"},
+        {"proName": "BSE:GAIL", "title": "GAIL"},
+        {"proName": "BSE:IOC", "title": "IOC"},
+        {"proName": "BSE:JSWSTEEL", "title": "JSW Steel"},
+        {"proName": "BSE:TATASTEEL", "title": "Tata Steel"},
+        {"proName": "BSE:HINDALCO", "title": "Hindalco"},
+        {"proName": "BSE:VEDL", "title": "Vedanta"},
+        {"proName": "BSE:ZOMATO", "title": "Zomato"},
+        {"proName": "BSE:PAYTM", "title": "Paytm"},
+        {"proName": "BSE:NYKAA", "title": "Nykaa"},
+        {"proName": "BSE:IRCTC", "title": "IRCTC"},
+        {"proName": "BSE:LICI", "title": "LIC"}
+      ],
+      "showSymbolLogo": true,
+      "colorTheme": "light",
+      "isTransparent": false,
+      "displayMode": "adaptive",
+      "locale": "en"
+    }
+    </script>
+  </div>
+  
+
+
+  <!-- Non-authenticated Welcome Message -->
+  <div class="text-center mb-5 animate-fade pt-3">
+    <h1 class="display-4 fw-bold">All-in-one <span class="text-brand">indeed</span></h1>
+    <p class="lead">Your Premier AI Indian Stock Market Analysis Platform</p>
+  </div>
+  {% else %}
+  <!-- Authenticated Welcome Message -->
+  <div class="text-center mb-5 animate-fade pt-3">
+    <h1 class="display-4 fw-bold text">Explore <span style="color: #6c47ff;">NiveshGuru!</span></h1>
+    <p class="lead">Hello, <span style="color: #6c47ff;">{{ user.username }}</span>! Ready to explore the markets?</p>
+  </div>
+
+  <!-- TradingView Chart -->
+  <div class="tradingview-widget-container mb-4">
+    <div id="tradingview_chart"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+      new TradingView.widget({
+        "width": "100%",
+        "height": 500,
+        "symbol": "BSE:IRFC",
+        "interval": "D",
+        "timezone": "Etc/UTC",
+        "theme": "light",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "allow_symbol_change": true,
+        "container_id": "tradingview_chart"
+      });
+    </script>
+  </div>
+
+  <!-- TradingView Ticker Tape -->
+  <div class="tradingview-widget-container mb-4">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        {"proName": "BSE:SENSEX", "title": "BSE Sensex"},
+        {"proName": "BSE:RELIANCE", "title": "Reliance Industries"},
+        {"proName": "BSE:TCS", "title": "Tata Consultancy Services"},
+        {"proName": "BSE:HDFCBANK", "title": "HDFC Bank"},
+        {"proName": "BSE:INFY", "title": "Infosys"},
+        {"proName": "BSE:ICICIBANK", "title": "ICICI Bank"},
+        {"proName": "BSE:HINDUNILVR", "title": "Hindustan Unilever"},
+        {"proName": "BSE:BAJFINANCE", "title": "Bajaj Finance"},
+        {"proName": "BSE:SBIN", "title": "State Bank of India"},
+        {"proName": "BSE:LT", "title": "Larsen & Toubro"}
+      ],
+      "showSymbolLogo": true,
+      "colorTheme": "light",
+      "isTransparent": false,
+      "displayMode": "adaptive",
+      "locale": "en"
+    }
+    </script>
+  </div>
+  
+  
+  <!-- Feature Cards -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0 feature-card animate-fade">
+        <div class="card-body text-center">
+          <i class="bi bi-journal-text fs-1 text-brand"></i>
+          <h3 class="card-title mt-3">TradeBlog</h3>
+          <p>Daily analysis, strategies, and insights.</p>
+          <a href="{% url 'blog_list' %}" class="btn btn-outline-brand">Read Analysis</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0 feature-card animate-fade">
+        <div class="card-body text-center">
+          <i class="bi bi-graph-up fs-1 text-brand"></i>
+          <h3 class="card-title mt-3">LSTM Predictor</h3>
+          <p>AI-powered stock predictions for more accuracy.</p>
+          <a href="#" class="btn btn-outline-brand">Try Predictor</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0 feature-card animate-fade">
+        <div class="card-body text-center">
+          <i class="bi bi-speedometer2 fs-1 text-info"></i>
+          <h3 class="card-title mt-3">Live Dashboard</h3>
+          <p>Real-time NSE/BSE tracking with indicators.</p>
+          <a href="{% url 'nse_dashboard' %}" class="btn btn-outline-info">View Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if not user.is_authenticated %}
+  <!-- Market Mastery -->
+  <div class="py-5 px-4 mb-5 text-white rounded animate-fade" style="background-color: #0b1546;">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Gateway to Market Mastery</h2>
+        <p class="mt-3">Access real-time indices, advanced charting tools, and insights into market momentum.</p>
+        
+      </div>
+      <div class="col-md-6">
+        <h2 class="text-white">Key Features</h2>
+        <ul class="list-unstyled mt-3">
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Technical Tools</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Stock Screener</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Options Analysis</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Historical Data</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning Resources -->
+  <div class="p-5 mb-5 bg-white rounded-4 shadow-sm animate-fade">
+    <h2 class="fw-bold text-center text-brand mb-4">📘 Learning Resources</h2>
+    <p class="text-center text-muted mb-4">Sharpen your trading skills with our expert-curated guides.</p>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 text-center resource-card">
+          <div class="card-body">
+            <i class="bi bi-lightbulb-fill fs-1 text-brand mb-3"></i>
+            <h5 class="card-title fw-semibold">Beginner's Guide</h5>
+            <p class="text-muted">Start your investing journey with foundational knowledge.</p>
+            <a href="#" class="btn btn-outline-brand btn-sm">Explore Guide</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 text-center resource-card">
+          <div class="card-body">
+            <i class="bi bi-activity fs-1 text-brand mb-3"></i>
+            <h5 class="card-title fw-semibold">Technical Analysis</h5>
+            <p class="text-muted">Learn to read charts, patterns, and key indicators.</p>
+            <a href="#" class="btn btn-outline-brand btn-sm">View Lessons</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 text-center resource-card">
+          <div class="card-body">
+            <i class="bi bi-currency-exchange fs-1 text-brand mb-3"></i>
+            <h5 class="card-title fw-semibold">Derivatives Trading</h5>
+            <p class="text-muted">Understand options, futures & risk management.</p>
+            <a href="#" class="btn btn-outline-brand btn-sm">Learn Strategies</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Market Movers Section -->
+
+
+<!-- Investment Tips Section -->
+<div class="py-5 px-4 mb-5 rounded animate-fade" style="background: linear-gradient(to right, #6a1b9a, #8e24aa);">
+  <h2 class="fw-bold text-center text-white mb-4">💡 Investment Tips</h2>
+  <div class="row justify-content-center">
+
+    <!-- Tip 1: Diversify Your Portfolio -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-lg border-0 rounded-4 investment-card">
+        <div class="card-body">
+          <div class="icon-container mb-3">
+            <i class="fas fa-puzzle-piece fa-2x text-primary"></i>
+          </div>
+          <h5 class="card-title text-dark">Diversify Your Portfolio</h5>
+          <p class="card-text text-dark">Don't put all your eggs in one basket. Diversifying helps mitigate risks and can lead to more stable returns.</p>
+          <button class="btn btn-outline-light btn-sm" data-bs-toggle="collapse" data-bs-target="#tip1Details" aria-expanded="false" aria-controls="tip1Details">Learn More</button>
+          <div id="tip1Details" class="collapse mt-3">
+            <p class="text-dark">Investing in different asset classes such as stocks, bonds, and real estate can spread out your risk. It helps to avoid heavy losses when one market performs poorly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tip 2: Start Early and Stay Consistent -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-lg border-0 rounded-4 investment-card">
+        <div class="card-body">
+          <div class="icon-container mb-3">
+            <i class="fas fa-clock fa-2x text-primary"></i>
+          </div>
+          <h5 class="card-title text-dark">Start Early and Stay Consistent</h5>
+          <p class="card-text text-dark">The earlier you start investing, the more time your money has to grow. Consistency is key in building long-term wealth.</p>
+          <button class="btn btn-outline-light btn-sm" data-bs-toggle="collapse" data-bs-target="#tip2Details" aria-expanded="false" aria-controls="tip2Details">Learn More</button>
+          <div id="tip2Details" class="collapse mt-3">
+            <p class="text-dark">Even small, consistent investments can grow significantly over time due to compound interest. Consider setting up automatic contributions to your investment accounts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tip 3: Understand the Risk vs. Reward -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-lg border-0 rounded-4 investment-card">
+        <div class="card-body">
+          <div class="icon-container mb-3">
+            <i class="fas fa-balance-scale fa-2x text-primary"></i>
+          </div>
+          <h5 class="card-title text-dark">Understand the Risk vs. Reward</h5>
+          <p class="card-text text-dark">Higher returns generally come with higher risks. It's essential to assess your risk tolerance before making investment decisions.</p>
+          <button class="btn btn-outline-light btn-sm" data-bs-toggle="collapse" data-bs-target="#tip3Details" aria-expanded="false" aria-controls="tip3Details">Learn More</button>
+          <div id="tip3Details" class="collapse mt-3">
+            <p class="text-dark">Assessing your risk tolerance involves understanding how much risk you’re willing to take in exchange for the potential rewards. Consider diversifying investments based on risk levels.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tip 4: Stay Informed and Educate Yourself -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-lg border-0 rounded-4 investment-card">
+        <div class="card-body">
+          <div class="icon-container mb-3">
+            <i class="fas fa-book-open fa-2x text-primary"></i>
+          </div>
+          <h5 class="card-title text-dark">Stay Informed and Educate Yourself</h5>
+          <p class="card-text text-dark">Financial markets evolve constantly. Staying informed and continuing to learn about investment strategies can improve your decision-making.</p>
+          <button class="btn btn-outline-light btn-sm" data-bs-toggle="collapse" data-bs-target="#tip4Details" aria-expanded="false" aria-controls="tip4Details">Learn More</button>
+          <div id="tip4Details" class="collapse mt-3">
+            <p class="text-dark">Investors who keep up with financial news, read books, and take courses tend to perform better. Tools like financial podcasts, webinars, and financial news apps are great resources.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tip 5: Set Clear Financial Goals -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-lg border-0 rounded-4 investment-card">
+        <div class="card-body">
+          <div class="icon-container mb-3">
+            <i class="fas fa-flag-checkered fa-2x text-primary"></i>
+          </div>
+          <h5 class="card-title text-dark">Set Clear Financial Goals</h5>
+          <p class="card-text text-dark">It's essential to set clear, measurable financial goals. Knowing what you're working toward will help guide your investment strategy.</p>
+          <button class="btn btn-outline-light btn-sm" data-bs-toggle="collapse" data-bs-target="#tip5Details" aria-expanded="false" aria-controls="tip5Details">Learn More</button>
+          <div id="tip5Details" class="collapse mt-3">
+            <p class="text-dark">Start by determining your financial objectives: retirement, purchasing a home, or building an emergency fund. Then tailor your investment strategy to meet those goals within a specific timeframe.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- Latest Financial News Section -->
+<div class="py-5 px-4 mb-5 bg-white rounded animate-fade">
+  <h2 class="fw-bold text-center text-brand mb-4">📰 Latest Financial News</h2>
+  
+  <div class="news-container">
+
+    <!-- News Item 1 -->
+    <div class="news-item">
+      <h5 class="news-title">Market hits all-time high amid economic optimism</h5>
+      <p class="news-summary">The Sensex surged to a new peak as investors reacted positively to the latest economic indicators...</p>
+      <div class="news-full-content">
+        <p>The market rally was led by banking and technology stocks, supported by strong quarterly earnings and the Reserve Bank's dovish stance on interest rates. Despite global economic uncertainties, India's stock market is demonstrating resilience, with major indices hitting record highs. The rally is seen as a sign of investor confidence and optimism about India's long-term growth prospects...</p>
+      </div>
+      <button class="btn btn-sm btn-outline-primary mt-2 toggle-btn">Read more</button>
+    </div>
+
+    <!-- News Item 2 -->
+    <div class="news-item">
+      <h5 class="news-title">RBI maintains repo rate, signals steady economic growth</h5>
+      <p class="news-summary">The Reserve Bank of India kept the benchmark interest rate unchanged in its latest monetary policy announcement...</p>
+      <div class="news-full-content">
+        <p>The central bank cited stable inflation and improving consumer confidence as key reasons, while warning of global economic uncertainties. With inflation under control, the RBI's decision to keep rates steady signals that the Indian economy is on a stable growth path. Analysts expect the RBI to maintain this stance in the near future to support ongoing recovery...</p>
+      </div>
+      <button class="btn btn-sm btn-outline-primary mt-2 toggle-btn">Read more</button>
+    </div>
+
+    <!-- News Item 3 -->
+    <div class="news-item">
+      <h5 class="news-title">Tech sector rebounds after recent correction</h5>
+      <p class="news-summary">Indian tech stocks bounced back this week after a period of volatility, led by Infosys and TCS...</p>
+      <div class="news-full-content">
+        <p>Analysts attribute the recovery to strong US market cues and positive earnings guidance from major IT players. Companies like Infosys, TCS, and Wipro are expected to continue leading the sector, as India's IT services continue to attract global demand. This rebound could signal a strong recovery for the tech sector after a brief period of volatility...</p>
+      </div>
+      <button class="btn btn-sm btn-outline-primary mt-2 toggle-btn">Read more</button>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- FAQs Section -->
+  <div class="mb-5 animate-fade">
+    <h2 class="text-center fw-bold text-brand mb-4"> Frequently Asked Questions❓</h2>
+    <p class="text-center text-muted mb-4">Get clarity on common queries about using NiveshGuru.</p>
+
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+        <h2 class="accordion-header" id="faq1">
+          <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+            How accurate are the stock predictions?
+          </button>
+        </h2>
+        <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            Our LSTM-based predictions use historical data and market trends. While insightful, they should be used with caution and not as financial advice.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+        <h2 class="accordion-header" id="faq2">
+          <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+            Do I need to create an account to access features?
+          </button>
+        </h2>
+        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            You can explore some features without logging in, but for blog creation, AI tools, and saving preferences, an account is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+        <h2 class="accordion-header" id="faq3">
+          <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+            Is NiveshGuru free to use?
+          </button>
+        </h2>
+        <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            Yes, NiveshGuru is free for all users. Some advanced tools may become part of a premium tier in the future.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item border-0 mb-3 shadow-sm rounded-3">
+        <h2 class="accordion-header" id="faq4">
+          <button class="accordion-button collapsed fw-semibold text-brand" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+            Can I contribute to TradeBlog?
+          </button>
+        </h2>
+        <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            Absolutely! After signing up, you'll have access to our blog editor where you can write and publish your own market analyses.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <!-- Footer Links Section -->
+  <div class="p-5 mb-5 bg-white rounded-4 shadow-sm animate-fade">
+    <div class="row g-4">
+      <div class="col-md-3">
+        <h5 class="fw-bold text-brand mb-3">Product</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Features</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Security</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h5 class="fw-bold text-brand mb-3">Company</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">About</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Blog</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h5 class="fw-bold text-brand mb-3">Resources</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Documentation</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">API Reference</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h5 class="fw-bold text-brand mb-3">Legal</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Privacy</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Terms</a></li>
+          <li class="mb-2"><a href="#" class="text-decoration-none text-muted hover-text-brand">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+  document.querySelectorAll('.toggle-btn').forEach(button => {
+    button.addEventListener('click', function () {
+      const newsItem = this.closest('.news-item');
+      const fullContent = newsItem.querySelector('.news-full-content');
+      const isVisible = fullContent.classList.contains('d-none');
+
+      if (isVisible) {
+        fullContent.classList.remove('d-none'); // Show full content
+        this.textContent = 'Show less';         // Change button text to 'Show less'
+      } else {
+        fullContent.classList.add('d-none');    // Hide full content
+        this.textContent = 'Read more';          // Change button text to 'Read more'
+      }
+    });
+  });
+</script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
 {% endblock %}

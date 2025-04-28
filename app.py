@@ -134,7 +134,7 @@ def train_model(X_train, y_train, X_test, y_test, time_step, n_features):
     return model
 
 # Optimized model loading and training
-def load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, ticker):
+def load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, ticker, scaler):
     model_path = os.path.join(MODEL_DIR, f"{ticker.replace('.NS', '')}_model.h5")
     scaler_path = os.path.join(SCALER_DIR, f"{ticker.replace('.NS', '')}_scaler.pkl")
     
@@ -143,8 +143,7 @@ def load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features,
         try:
             with st.spinner("Loading existing model..."):
                 model = tf.keras.models.load_model(model_path)
-                scaler = joblib.load(scaler_path)
-                st.info("Loaded existing model and scaler")
+                st.info("Loaded existing model")
                 return model, scaler
         except Exception as e:
             st.warning(f"Error loading model: {e}")
@@ -189,7 +188,7 @@ def main():
     # Load or train model
     retrain = st.sidebar.checkbox("Retrain Model")
     if retrain:
-        model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock)
+        model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler)
     else:
         try:
             model_path = os.path.join(MODEL_DIR, f"{selected_stock.replace('.NS', '')}_model.h5")
@@ -201,111 +200,120 @@ def main():
                     scaler = joblib.load(scaler_path)
                     st.info("Loaded existing model and scaler")
             else:
-                model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock)
+                model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler)
         except Exception as e:
             st.warning(f"Error loading model: {e}")
-            model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock)
+            model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler)
 
-    # Predict button
-    if st.button("🔮 Generate Predictions"):
-        with st.spinner("Generating predictions..."):
-            # Predict on train and test data
-            train_predict = model.predict(X_train, verbose=0)
-            test_predict = model.predict(X_test, verbose=0)
+    # Add a clear section for predictions
+    st.markdown("---")
+    st.subheader("📊 Stock Price Predictions")
+    
+    # Predict button in a more prominent location
+    if st.button("🔮 Generate Predictions", key="predict_button"):
+        st.info("Prediction button clicked. Starting prediction...")
+        try:
+            with st.spinner("Generating predictions..."):
+                # Predict on train and test data
+                train_predict = model.predict(X_train, verbose=0)
+                test_predict = model.predict(X_test, verbose=0)
 
-            # Reverse scaling for Close price
-            # Create dummy arrays to match scaler shape (5 features)
-            dummy_train = np.zeros((train_predict.shape[0], 5))
-            dummy_test = np.zeros((test_predict.shape[0], 5))
-            dummy_y_test = np.zeros((y_test.shape[0], 5))
-            
-            # Set Close (index 3) to predictions
-            dummy_train[:, 3] = train_predict[:, 0]
-            dummy_test[:, 3] = test_predict[:, 0]
-            dummy_y_test[:, 3] = y_test
-            
-            # Inverse transform
-            train_predict = scaler.inverse_transform(dummy_train)[:, 3]
-            test_predict = scaler.inverse_transform(dummy_test)[:, 3]
-            y_test_actual = scaler.inverse_transform(dummy_y_test)[:, 3]
+                # Reverse scaling for Close price
+                # Create dummy arrays to match scaler shape (5 features)
+                dummy_train = np.zeros((train_predict.shape[0], 5))
+                dummy_test = np.zeros((test_predict.shape[0], 5))
+                dummy_y_test = np.zeros((y_test.shape[0], 5))
+                
+                # Set Close (index 3) to predictions
+                dummy_train[:, 3] = train_predict[:, 0]
+                dummy_test[:, 3] = test_predict[:, 0]
+                dummy_y_test[:, 3] = y_test
+                
+                # Inverse transform
+                train_predict = scaler.inverse_transform(dummy_train)[:, 3]
+                test_predict = scaler.inverse_transform(dummy_test)[:, 3]
+                y_test_actual = scaler.inverse_transform(dummy_y_test)[:, 3]
 
-            # Ensure lengths match
-            min_length = min(len(df.index[train_size+2*time_step+1:]), len(y_test_actual), len(test_predict))
-            y_test_actual = y_test_actual[:min_length]
-            test_predict = test_predict[:min_length]
-            test_dates = df.index[train_size+2*time_step+1:train_size+2*time_step+1+min_length]
+                # Ensure lengths match
+                min_length = min(len(df.index[train_size+2*time_step+1:]), len(y_test_actual), len(test_predict))
+                y_test_actual = y_test_actual[:min_length]
+                test_predict = test_predict[:min_length]
+                test_dates = df.index[train_size+2*time_step+1:train_size+2*time_step+1+min_length]
 
-            # Calculate errors
-            errors = np.abs(y_test_actual - test_predict)
-            percentage_errors = (errors / y_test_actual) * 100
+                # Calculate errors
+                errors = np.abs(y_test_actual - test_predict)
+                percentage_errors = (errors / y_test_actual) * 100
 
-            # Future predictions (19 trading days from last date)
-            future_days = 19
-            future_inputs = X_test[-1].copy()
-            future_predictions = []
-            for _ in range(future_days):
-                future_pred_scaled = model.predict(future_inputs.reshape(1, time_step, n_features), verbose=0)
-                future_predictions.append(future_pred_scaled[0, 0])
-                # Shift inputs and add new prediction
-                future_inputs = np.roll(future_inputs, -1, axis=0)
-                future_inputs[-1, 3] = future_pred_scaled[0, 0]  # Update Close
-                # Keep other features as last known values (simplified)
-                future_inputs[-1, :3] = future_inputs[-2, :3]   # Open, High, Low
-                future_inputs[-1, 4] = future_inputs[-2, 4]     # Volume
+                # Future predictions (19 trading days from last date)
+                future_days = 19
+                future_inputs = X_test[-1].copy()
+                future_predictions = []
+                for _ in range(future_days):
+                    future_pred_scaled = model.predict(future_inputs.reshape(1, time_step, n_features), verbose=0)
+                    future_predictions.append(future_pred_scaled[0, 0])
+                    # Shift inputs and add new prediction
+                    future_inputs = np.roll(future_inputs, -1, axis=0)
+                    future_inputs[-1, 3] = future_pred_scaled[0, 0]  # Update Close
+                    # Keep other features as last known values (simplified)
+                    future_inputs[-1, :3] = future_inputs[-2, :3]   # Open, High, Low
+                    future_inputs[-1, 4] = future_inputs[-2, 4]     # Volume
 
-            # Reverse scaling for future predictions
-            dummy_future = np.zeros((len(future_predictions), 5))
-            dummy_future[:, 3] = future_predictions
-            future_predictions = scaler.inverse_transform(dummy_future)[:, 3]
+                # Reverse scaling for future predictions
+                dummy_future = np.zeros((len(future_predictions), 5))
+                dummy_future[:, 3] = future_predictions
+                future_predictions = scaler.inverse_transform(dummy_future)[:, 3]
 
-            # Generate future trading dates
-            last_date = df.index[-1]
-            future_dates = pd.bdate_range(start=last_date + timedelta(days=1), periods=future_days)
+                # Generate future trading dates
+                last_date = df.index[-1]
+                future_dates = pd.bdate_range(start=last_date + timedelta(days=1), periods=future_days)
 
-            # Plot results
-            st.subheader(f"📈 {stocks[selected_stock]} Stock Price Prediction Plot")
-            fig, ax = plt.subplots(figsize=(14, 7))
-            ax.plot(df.index[time_step:train_size+time_step], 
-                    df['Close'][time_step:train_size+time_step], 
-                    label="Actual Train Data", color="blue")
-            ax.plot(test_dates, y_test_actual, label="Actual Test Data", color="red")
-            ax.plot(test_dates, test_predict, label="Predicted Test Data", linestyle='dashed', color="green")
-            ax.plot(future_dates, future_predictions, 
-                    label=f"Future Predictions ({future_dates[0].strftime('%d %b')} - {future_dates[-1].strftime('%d %b %Y')})", 
-                    linestyle='dotted', color='purple')
-            ax.legend()
-            ax.set_title(f"{stocks[selected_stock]} Stock Price Prediction")
-            ax.set_xlabel("Date")
-            ax.set_ylabel("Stock Price")
-            ax.tick_params(axis='x', rotation=45)
-            ax.grid(True)
-            st.pyplot(fig)
+                # Plot results
+                st.subheader(f"📈 {stocks[selected_stock]} Stock Price Prediction Plot")
+                fig, ax = plt.subplots(figsize=(14, 7))
+                ax.plot(df.index[time_step:train_size+time_step], 
+                        df['Close'][time_step:train_size+time_step], 
+                        label="Actual Train Data", color="blue")
+                ax.plot(test_dates, y_test_actual, label="Actual Test Data", color="red")
+                ax.plot(test_dates, test_predict, label="Predicted Test Data", linestyle='dashed', color="green")
+                ax.plot(future_dates, future_predictions, 
+                        label=f"Future Predictions ({future_dates[0].strftime('%d %b')} - {future_dates[-1].strftime('%d %b %Y')})", 
+                        linestyle='dotted', color='purple')
+                ax.legend()
+                ax.set_title(f"{stocks[selected_stock]} Stock Price Prediction")
+                ax.set_xlabel("Date")
+                ax.set_ylabel("Stock Price")
+                ax.tick_params(axis='x', rotation=45)
+                ax.grid(True)
+                st.pyplot(fig)
 
-            # Display actual vs. predicted test prices with errors
-            st.subheader("📊 Actual vs. Predicted Test Prices with Errors")
-            results_df = pd.DataFrame({
-                'Date': test_dates,
-                'Actual Price': np.round(y_test_actual, 2),
-                'Predicted Price': np.round(test_predict, 2),
-                'Absolute Error': np.round(errors, 2),
-                'Percentage Error (%)': np.round(percentage_errors, 2)
-            })
-            st.dataframe(results_df, height=300)
+                # Display actual vs. predicted test prices with errors
+                st.subheader("📊 Actual vs. Predicted Test Prices with Errors")
+                results_df = pd.DataFrame({
+                    'Date': test_dates,
+                    'Actual Price': np.round(y_test_actual, 2),
+                    'Predicted Price': np.round(test_predict, 2),
+                    'Absolute Error': np.round(errors, 2),
+                    'Percentage Error (%)': np.round(percentage_errors, 2)
+                })
+                st.dataframe(results_df, height=300)
 
-            # Display future predictions
-            st.subheader(f"🔮 Future Predictions ({future_dates[0].strftime('%d %b')} - {future_dates[-1].strftime('%d %b %Y')})")
-            future_df = pd.DataFrame({
-                'Date': future_dates,
-                'Predicted Price': np.round(future_predictions, 2)
-            })
-            st.dataframe(future_df, height=300)
+                # Display future predictions
+                st.subheader(f"🔮 Future Predictions ({future_dates[0].strftime('%d %b')} - {future_dates[-1].strftime('%d %b %Y')})")
+                future_df = pd.DataFrame({
+                    'Date': future_dates,
+                    'Predicted Price': np.round(future_predictions, 2)
+                })
+                st.dataframe(future_df, height=300)
 
-            # Display tomorrow's prediction
-            today_date = date.today()
-            tomorrow_date = today_date + timedelta(days=1)
-            tomorrow_pred = future_predictions[0]
-            st.write(f"📅 **Today's Date**: {today_date}")
-            st.write(f"🔮 **Predicted Stock Price for Tomorrow ({tomorrow_date})**: {tomorrow_pred:.2f}")
+                # Display tomorrow's prediction
+                today_date = date.today()
+                tomorrow_date = today_date + timedelta(days=1)
+                tomorrow_pred = future_predictions[0]
+                st.write(f"📅 **Today's Date**: {today_date}")
+                st.write(f"🔮 **Predicted Stock Price for Tomorrow ({tomorrow_date})**: {tomorrow_pred:.2f}")
+            st.success("Prediction completed!")
+        except Exception as e:
+            st.error(f"An error occurred during prediction: {e}")
 
 if __name__ == "__main__":
     main()

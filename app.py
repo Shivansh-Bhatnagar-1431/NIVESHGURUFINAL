@@ -10,6 +10,7 @@ import os
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dropout, Dense
 import logging
+import random
 
 # Suppress TensorFlow warnings
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
@@ -41,6 +42,14 @@ if gpus:
         st.info("GPU acceleration enabled")
     except RuntimeError as e:
         st.warning(f"GPU configuration error: {e}")
+
+# Best hyperparameters for each stock
+best_params = {
+    "UNIONBANK.NS": {"lstm_units": 50, "dropout": 0.2, "epochs": 50, "batch_size": 32},
+    "IOC.NS": {"lstm_units": 100, "dropout": 0.3, "epochs": 50, "batch_size": 32},
+    "IRFC.NS": {"lstm_units": 100, "dropout": 0.3, "epochs": 50, "batch_size": 32},
+    "BAJAJCON.NS": {"lstm_units": 100, "dropout": 0.2, "epochs": 50, "batch_size": 32}
+}
 
 # Cache data loading
 @st.cache_data
@@ -98,29 +107,26 @@ def preprocess_data(df, time_step=60):
 
 # Cache model training with optimized parameters
 @st.cache_resource
-def train_model(X_train, y_train, X_test, y_test, time_step, n_features):
+def train_model(X_train, y_train, X_test, y_test, time_step, n_features, params, retrain_token=0):
     with st.spinner("Training model (this may take a few minutes)..."):
-        # Create an even simpler model architecture
         model = Sequential([
-            LSTM(units=32, return_sequences=True, input_shape=(time_step, n_features)),
-            Dropout(0.1),
-            LSTM(units=32),
-            Dropout(0.1),
+            LSTM(units=params["lstm_units"], return_sequences=True, input_shape=(time_step, n_features)),
+            Dropout(params["dropout"]),
+            LSTM(units=params["lstm_units"], return_sequences=True),
+            Dropout(params["dropout"]),
+            LSTM(units=params["lstm_units"]),
+            Dropout(params["dropout"]),
             Dense(units=1)
         ])
-        
-        # Use a more efficient optimizer with higher learning rate
         model.compile(
             loss='mean_squared_error',
             optimizer=tf.keras.optimizers.Adam(learning_rate=0.01),
             metrics=['mae']
         )
-        
-        # Further reduce epochs and increase batch size
         model.fit(
             X_train, y_train,
-            epochs=10,  # Reduced from 20
-            batch_size=256,  # Increased from 128
+            epochs=params["epochs"],
+            batch_size=params["batch_size"],
             validation_data=(X_test, y_test),
             verbose=0,
             callbacks=[
@@ -134,12 +140,12 @@ def train_model(X_train, y_train, X_test, y_test, time_step, n_features):
     return model
 
 # Optimized model loading and training
-def load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, ticker, scaler):
+def load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, ticker, scaler, retrain_token=0):
     model_path = os.path.join(MODEL_DIR, f"{ticker}_model.h5")
     scaler_path = os.path.join(SCALER_DIR, f"{ticker}_scaler.pkl")
-    
+    params = best_params.get(ticker, {"lstm_units": 50, "dropout": 0.2, "epochs": 100, "batch_size": 256})
     # First try to load both model and scaler
-    if os.path.exists(model_path) and os.path.exists(scaler_path):
+    if os.path.exists(model_path) and os.path.exists(scaler_path) and retrain_token == 0:
         try:
             with st.spinner("Loading existing model..."):
                 model = tf.keras.models.load_model(model_path)
@@ -152,10 +158,9 @@ def load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features,
                 os.remove(model_path)
             if os.path.exists(scaler_path):
                 os.remove(scaler_path)
-    
-    # If loading failed or files don't exist, train new model
+    # If loading failed or files don't exist, or retrain_token is set, train new model
     with st.spinner("Training new model..."):
-        model = train_model(X_train, y_train, X_test, y_test, time_step, n_features)
+        model = train_model(X_train, y_train, X_test, y_test, time_step, n_features, params, retrain_token)
         # Save model and scaler
         model.save(model_path)
         joblib.dump(scaler, scaler_path)
@@ -187,8 +192,12 @@ def main():
 
     # Load or train model
     retrain = st.sidebar.checkbox("Retrain Model")
+    retrain_token = random.random() if retrain else 0
     if retrain:
-        model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler)
+        st.warning("Cache will be cleared and model will be retrained.")
+        st.cache_resource.clear()
+        st.cache_data.clear()
+        model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler, retrain_token)
     else:
         try:
             model_path = os.path.join(MODEL_DIR, f"{selected_stock}_model.h5")
@@ -200,10 +209,10 @@ def main():
                     scaler = joblib.load(scaler_path)
                     st.info("Loaded existing model and scaler")
             else:
-                model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler)
+                model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler, retrain_token)
         except Exception as e:
             st.warning(f"Error loading model: {e}")
-            model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler)
+            model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler, retrain_token)
 
     # Add a clear section for predictions
     st.markdown("---")

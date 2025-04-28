@@ -135,8 +135,8 @@ def train_model(X_train, y_train, X_test, y_test, time_step, n_features):
 
 # Optimized model loading and training
 def load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, ticker, scaler):
-    model_path = os.path.join(MODEL_DIR, f"{ticker.replace('.NS', '')}_model.h5")
-    scaler_path = os.path.join(SCALER_DIR, f"{ticker.replace('.NS', '')}_scaler.pkl")
+    model_path = os.path.join(MODEL_DIR, f"{ticker}_model.h5")
+    scaler_path = os.path.join(SCALER_DIR, f"{ticker}_scaler.pkl")
     
     # First try to load both model and scaler
     if os.path.exists(model_path) and os.path.exists(scaler_path):
@@ -191,8 +191,8 @@ def main():
         model, scaler = load_or_train_model(X_train, y_train, X_test, y_test, time_step, n_features, selected_stock, scaler)
     else:
         try:
-            model_path = os.path.join(MODEL_DIR, f"{selected_stock.replace('.NS', '')}_model.h5")
-            scaler_path = os.path.join(SCALER_DIR, f"{selected_stock.replace('.NS', '')}_scaler.pkl")
+            model_path = os.path.join(MODEL_DIR, f"{selected_stock}_model.h5")
+            scaler_path = os.path.join(SCALER_DIR, f"{selected_stock}_scaler.pkl")
             
             if os.path.exists(model_path) and os.path.exists(scaler_path):
                 with st.spinner("Loading existing model..."):
